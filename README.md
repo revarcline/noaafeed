@@ -1,6 +1,6 @@
-# Noaafeed
+# Weatherlixir
 
-scrapes NOAA xml data to console
+elixir cli weather app
 
 ## Installation
 

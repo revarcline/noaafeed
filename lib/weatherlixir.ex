@@ -1,6 +1,6 @@
-defmodule Noaafeed do
+defmodule Weatherlixir do
   @moduledoc """
-  Documentation for `Noaafeed`.
+  Documentation for `Weatherlixir`.
   """
 
   @doc """
