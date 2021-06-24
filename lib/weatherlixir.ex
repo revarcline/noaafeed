@@ -8,7 +8,7 @@ defmodule Weatherlixir do
 
   ## Examples
 
-      iex> Noaafeed.hello()
+      iex> Weatherlixir.hello()
       :world
 
   """

@@ -10,7 +10,7 @@ by adding `noaafeed` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:noaafeed, "~> 0.1.0"}
+    {:weatherlixir, "~> 0.1.0"}
   ]
 end
 ```
