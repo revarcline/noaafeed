@@ -19,3 +19,8 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/noaafeed](https://hexdocs.pm/noaafeed).
 
+## Adding API key
+
+This relies on the free OpenWeatherMap API, if you find you're being rate-limited, please set your own in the configuration
+https://home.openweathermap.org/users/sign_up
+
