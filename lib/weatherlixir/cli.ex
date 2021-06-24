@@ -1,6 +1,6 @@
 defmodule Weatherlixir.CLI do
   @moduledoc """
-  scrapes weather info from NOAA website based on location code
+  calls OpenWeatherMap api based on city, city/state, or zip
   """
 
   def main(argv) do
@@ -15,27 +15,43 @@ defmodule Weatherlixir.CLI do
   Otherwise, determines presence of Zip or City, State
   """
   def parse_args(argv) do
-    OptionParser.parse(argv,
-      switches: [help: :boolean, zip: :integer, city: :string],
+    OptionParser.parse!(argv,
+      switches: [help: :boolean, zip: :string, city: :string],
       aliases: [h: :help, z: :zip, c: :city, s: :state]
     )
-    |> elem(1)
+    |> elem(0)
     |> args_to_internal_representation()
   end
 
-  def args_to_internal_representation(args) do
-    # String.match?(args, ~r/^\d{5}(?:[-\s]\d{4})?$/) -> by_zip(args)
+  def args_to_internal_representation(zip: zip), do: check_zip(zip)
+  def args_to_internal_representation(city: city), do: %{city: city}
+
+  def args_to_internal_representation(city: city, state: state),
+    do: %{city: city, state: state}
+
+  def args_to_internal_representation(_), do: :help
+
+  def check_zip(zip) do
+    if String.match?(zip, ~r/^\d{5}(?:[-\s]\d{4})?$/) do
+      %{zip: zip}
+    else
+      IO.puts("Must enter a valid 5 or 9 digit zip code")
+      System.halt(2)
+    end
   end
 
   def process(:help) do
     IO.puts("""
-    usage: issues <city, state> or issues <zipcode>
+    usage: weatherlixir -c <city> ( -s <state> ) | -z <zipcode>
+      if city is multiple words, please put in quotes, like "New York".
+      --state or -s flag is optional with city
     """)
   end
 
-  def process({user, project, count}) do
-    Weatherlixir.WeatherMap.fetch(user, project)
-    |> decode_response()
+  def process(opts) do
+    # Weatherlixir.WeatherMap.fetch(user, project)
+    # |> decode_response()
+    IO.inspect(opts)
   end
 
   def decode_response({:ok, body}), do: body
