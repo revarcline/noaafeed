@@ -2,6 +2,7 @@ defmodule Weatherlixir.OpenWeatherMap do
   @moduledoc "http get handling for OpenWeatherMap"
   @api_url Application.get_env(:weatherlixir, :api_url)
   @api_key "&appid=#{Application.get_env(:weatherlixir, :api_key)}"
+  @units "&units=imperial"
 
   require Logger
 
@@ -13,9 +14,12 @@ defmodule Weatherlixir.OpenWeatherMap do
     |> handle_response
   end
 
-  def issues_url(%{city: city, state: state}), do: "#{@api_url}q=#{city},#{state}#{@api_key}"
-  def issues_url(%{city: city}), do: "#{@api_url}q=#{city}#{@api_key}"
-  def issues_url(%{zip: zip}), do: "#{@api_url}zip=#{zip}#{@api_key}"
+  def issues_url(%{city: city, state: state}) do
+    "#{@api_url}q=#{city},#{state}#{@api_key}#{@units}"
+  end
+
+  def issues_url(%{city: city}), do: "#{@api_url}q=#{city}#{@api_key}#{@units}"
+  def issues_url(%{zip: zip}), do: "#{@api_url}zip=#{zip}#{@api_key}#{@units}"
 
   def handle_response({_, %{status_code: status_code, body: body}}) do
     Logger.info("Got response: status code=#{status_code}")
