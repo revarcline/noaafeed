@@ -26,8 +26,9 @@ defmodule Weatherlixir.CLI do
   def args_to_internal_representation(zip: zip), do: check_zip(zip)
   def args_to_internal_representation(city: city), do: %{city: city}
 
-  def args_to_internal_representation(city: city, state: state),
-    do: %{city: city, state: state}
+  def args_to_internal_representation(city: city, state: state) do
+    check_state(%{city: city, state: state})
+  end
 
   def args_to_internal_representation(_), do: :help
 
@@ -36,6 +37,18 @@ defmodule Weatherlixir.CLI do
       %{zip: zip}
     else
       IO.puts("Must enter a valid 5 or 9 digit zip code")
+      System.halt(2)
+    end
+  end
+
+  def check_state(city_state) do
+    if String.match?(
+         city_state.state,
+         ~r/ ^(?-i:A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$ /
+       ) do
+      city_state
+    else
+      IO.puts("Must enter a valid two letter state code")
       System.halt(2)
     end
   end
@@ -49,9 +62,10 @@ defmodule Weatherlixir.CLI do
   end
 
   def process(opts) do
-    # Weatherlixir.WeatherMap.fetch(user, project)
+    Weatherlixir.OpenWeatherMap.fetch(opts)
+    |> IO.inspect()
+
     # |> decode_response()
-    IO.inspect(opts)
   end
 
   def decode_response({:ok, body}), do: body
