@@ -2,6 +2,6 @@ use Mix.Config
 
 config :weatherlixir,
   api_url: "api.openweathermap.org/data/2.5/weather?",
-  api_key: "&appid=4e687eb55d873aa1563366ba5697a96b"
+  api_key: "hidden"
 
 config :logger, compile_time_purge_matching: [[level_lower_than: :info]]
