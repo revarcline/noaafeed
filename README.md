@@ -21,5 +21,4 @@ be found at [https://hexdocs.pm/noaafeed](https://hexdocs.pm/noaafeed).
 
 ## Adding API key
 
-This relies on the free OpenWeatherMap API, you can get your own free key [here](https://home.openweathermap.org/users/sign_up) and set the `OPENWEATHER_API_KEY` enviroment variable to your key before building the application, or use a `.env` file with [exenv](https://github.com/nsweeting/exenv).
-
+This relies on the free OpenWeatherMap API, you can get your own free key [here](https://home.openweathermap.org/users/sign_up) and use the `config/dev.secret.exs` file
