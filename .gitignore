@@ -24,3 +24,6 @@ noaafeed-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# the secrets of .env
+.env
