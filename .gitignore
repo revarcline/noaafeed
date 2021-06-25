@@ -26,4 +26,4 @@ noaafeed-*.tar
 /tmp/
 
 # the secrets of .env
-.env
+/config/.env

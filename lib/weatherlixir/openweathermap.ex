@@ -7,6 +7,7 @@ defmodule Weatherlixir.OpenWeatherMap do
 
   def fetch(opts) do
     Logger.info("Fetching weather data for #{stringify_keys(opts)}: #{stringify_values(opts)}")
+    Logger.info("#{issues_url(opts)}")
 
     issues_url(opts)
     |> HTTPoison.get()
