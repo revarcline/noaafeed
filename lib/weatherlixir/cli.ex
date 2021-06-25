@@ -63,7 +63,7 @@ defmodule Weatherlixir.CLI do
 
   def process(opts) do
     Weatherlixir.OpenWeatherMap.fetch(opts)
-    |> IO.inspect()
+    |> print_output()
 
     # |> decode_response()
   end
@@ -73,5 +73,24 @@ defmodule Weatherlixir.CLI do
   def decode_response({:error, error}) do
     IO.puts("Error fetching weather: #{error["message"]}")
     System.halt(2)
+  end
+
+  def print_output(%{
+        "main" => %{
+          "feels_like" => feels_like,
+          "humidity" => humidity,
+          "temp" => temp,
+          "temp_max" => temp_max,
+          "temp_min" => temp_min
+        },
+        "name" => name,
+        "weather" => %{
+          "description" => description
+        }
+      }) do
+    """
+    #{temp}°F and #{description} in #{name}, feels like #{feels_like}°F.
+    High of #{temp_max}°F and low of #{temp_min}°F with a humidity of #{humidity}%.
+    """
   end
 end
