@@ -21,4 +21,11 @@ be found at [https://hexdocs.pm/noaafeed](https://hexdocs.pm/noaafeed).
 
 ## Adding API key
 
-This relies on the free OpenWeatherMap API, you can get your own free key [here](https://home.openweathermap.org/users/sign_up) and use the `config/dev.secret.exs` file
+This relies on the free OpenWeatherMap API, you can get your own free key [here](https://home.openweathermap.org/users/sign_up) and use the `config/dev.secret.exs` file like so:
+
+```elixir
+import Config
+
+config :openweathermap,
+  api_key: "API_KEY_HERE"
+```
